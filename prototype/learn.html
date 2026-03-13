@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OpenClaw Playbook - Learn</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-theme-default="dark">
+  <header class="topbar">
+    <div class="container nav">
+      <div class="nav-left">
+        <a class="brand" href="./home.html">OpenClaw</a>
+        <nav class="menu">
+          <a href="./home.html">Home</a>
+          <a class="active" href="./learn.html">Learn</a>
+          <a href="./templates.html">Templates</a>
+          <a href="./troubleshoot.html">Troubleshoot</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <div class="switcher"><button data-theme-btn="light">Light</button><button data-theme-btn="dark">Dark</button></div>
+        <div class="switcher"><button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button><button data-lang-btn="both">双语</button></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="grid-template-columns:1fr">
+      <article class="hero-main">
+        <span class="kicker">LEARN OPENCLAW</span>
+        <div class="lang lang-en">
+          <h1>Learn OpenClaw</h1>
+          <p class="sub">A structured path from fundamentals to real-world workflows, designed for people who want results instead of scattered notes.</p>
+        </div>
+        <div class="lang lang-zh">
+          <h1>Learn OpenClaw</h1>
+          <p class="sub">一条从基础认知到真实工作流的结构化学习路径，适合想要结果，而不是只想收藏资料的人。</p>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="#path-overview">Start with Foundations</a>
+          <a class="btn secondary" href="./templates.html">Start with Templates</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="lang lang-en"><h2>Pick a path that matches how you learn</h2></div>
+          <div class="lang lang-zh"><h2>选择一条更适合你的学习路径</h2></div>
+        </div>
+      </div>
+      <div class="grid cols-3">
+        <article class="card"><div class="lang lang-en"><h3>Complete beginner path</h3><p>You want to understand OpenClaw from zero and get your first setup working without unnecessary confusion.</p></div><div class="lang lang-zh"><h3>完整新手路径</h3><p>你希望从零理解 OpenClaw，并在尽量少踩坑的情况下完成第一次成功部署。</p></div><div class="cta-row"><a class="btn secondary" href="#path-overview">Start here</a></div></article>
+        <article class="card"><div class="lang lang-en"><h3>Developer path</h3><p>You already know CLI, automation, or servers and want the shortest route to a working system.</p></div><div class="lang lang-zh"><h3>开发者路径</h3><p>你已经熟悉命令行、自动化或服务器，希望最快到达“能跑”的状态。</p></div><div class="cta-row"><a class="btn secondary" href="#path-overview">Start developer path</a></div></article>
+        <article class="card"><div class="lang lang-en"><h3>Chinese work-tool path</h3><p>You want to use Feishu, DingTalk, or localized cloud environments with more context and less translation friction.</p></div><div class="lang lang-zh"><h3>中文工作流路径</h3><p>你想使用飞书、钉钉或中文云环境，希望看到更本地化、少绕弯的说明。</p></div><div class="cta-row"><a class="btn secondary" href="#path-overview">Start Chinese path</a></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="path-overview">
+      <article class="card">
+        <div class="lang lang-en"><h2>The learning path</h2></div>
+        <div class="lang lang-zh"><h2>学习路径总览</h2></div>
+        <div class="grid cols-2" style="margin-top:14px">
+          <article class="card">
+            <h3>Foundations</h3>
+            <p>Get clear on what OpenClaw is, where it shines, and why it should be treated as an execution system rather than just a chat interface.</p>
+            <ul class="list">
+              <li>What OpenClaw is</li>
+              <li>OpenClaw vs chatbots</li>
+              <li>Core architecture</li>
+              <li>Channels, skills, memory, and execution</li>
+            </ul>
+            <div class="cta-row"><a class="btn secondary" href="#">Explore Foundations</a></div>
+          </article>
+          <article class="card">
+            <h3>Setup</h3>
+            <p>Install OpenClaw, connect a real channel, verify your environment, and avoid common setup traps early.</p>
+            <ul class="list">
+              <li>Local install</li>
+              <li>VPS install</li>
+              <li>Telegram / Feishu setup</li>
+              <li>Health check</li>
+              <li>Background daemon basics</li>
+            </ul>
+            <div class="cta-row"><a class="btn secondary" href="#">Explore Setup</a></div>
+          </article>
+          <article class="card">
+            <h3>Skills & Workflows</h3>
+            <p>Learn how skills work, how to choose safer options, and how to combine them into useful, repeatable workflows.</p>
+            <ul class="list">
+              <li>How skills work</li>
+              <li>Starter skills</li>
+              <li>Risk basics</li>
+              <li>Workflow patterns</li>
+            </ul>
+            <div class="cta-row"><a class="btn secondary" href="#">Explore Skills</a></div>
+          </article>
+          <article class="card">
+            <h3>Real-world Use Cases</h3>
+            <p>Move from setup into action by applying OpenClaw to research, content, operations, monitoring, and team productivity.</p>
+            <ul class="list">
+              <li>Research workflows</li>
+              <li>Content workflows</li>
+              <li>Team use cases</li>
+              <li>Monitoring and alerting</li>
+            </ul>
+            <div class="cta-row"><a class="btn secondary" href="#">Explore Workflows</a></div>
+          </article>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="lang lang-en"><h2>Popular lessons</h2></div>
+        <div class="lang lang-zh"><h2>热门课程</h2></div>
+        <div class="grid cols-2" style="margin-top:12px">
+          <article class="card"><h3>What OpenClaw is actually good at</h3><p>Understand where OpenClaw creates leverage, and where it’s better not to force it.</p><div class="cta-row"><a class="btn secondary" href="#">Read lesson</a></div></article>
+          <article class="card"><h3>How to verify your setup before doing anything serious</h3><p>Check your model, channel, daemon, and logs before adding more complexity.</p><div class="cta-row"><a class="btn secondary" href="#">Read lesson</a></div></article>
+          <article class="card"><h3>How to choose safer starter skills</h3><p>Start with skills that are easier to understand, verify, and trust.</p><div class="cta-row"><a class="btn secondary" href="#">Read lesson</a></div></article>
+          <article class="card"><h3>How to think in workflows, not one-off commands</h3><p>Use OpenClaw as a repeatable system, not a pile of disconnected instructions.</p><div class="cta-row"><a class="btn secondary" href="#">Read lesson</a></div></article>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="callout">
+        <div class="lang lang-en"><h3>Want to learn by doing?</h3><p class="sub">The fastest way to understand OpenClaw is to ship a small workflow. Start with a template if you prefer action over theory.</p></div>
+        <div class="lang lang-zh"><h3>想边做边学？</h3><p class="sub">理解 OpenClaw 最快的方法，往往是先跑通一个小工作流。你更偏行动型的话，可以直接从模板开始。</p></div>
+        <div class="cta-row"><a class="btn primary" href="./templates.html">Browse Templates</a></div>
+      </article>
+    </section>
+
+    <footer class="footer">OpenClaw Playbook prototype · Learn</footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OpenClaw Playbook - Troubleshoot</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body data-theme-default="dark">
+  <header class="topbar">
+    <div class="container nav">
+      <div class="nav-left">
+        <a class="brand" href="./home.html">OpenClaw</a>
+        <nav class="menu">
+          <a href="./home.html">Home</a>
+          <a href="./learn.html">Learn</a>
+          <a href="./templates.html">Templates</a>
+          <a class="active" href="./troubleshoot.html">Troubleshoot</a>
+        </nav>
+      </div>
+      <div class="nav-right">
+        <div class="switcher"><button data-theme-btn="light">Light</button><button data-theme-btn="dark">Dark</button></div>
+        <div class="switcher"><button data-lang-btn="zh">中</button><button data-lang-btn="en">EN</button><button data-lang-btn="both">双语</button></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="grid-template-columns:1fr">
+      <article class="hero-main">
+        <span class="kicker">TROUBLESHOOT</span>
+        <div class="lang lang-en"><h1>Troubleshoot OpenClaw</h1><p class="sub">Find the shortest path from “it doesn’t work” to “it runs again.”</p></div>
+        <div class="lang lang-zh"><h1>Troubleshoot OpenClaw</h1><p class="sub">从“它不工作了”到“它重新跑起来了”，找到最短路径。</p></div>
+        <div class="newsletter-form">
+          <input class="search" placeholder="Describe your issue... / 描述你的问题..." />
+          <a class="btn primary" href="#symptoms">Start from symptoms</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="symptoms">
+      <article class="card">
+        <div class="lang lang-en"><h2>Start from what you see</h2></div>
+        <div class="lang lang-zh"><h2>从你看到的问题开始</h2></div>
+        <div class="tag-row" style="margin-top:12px">
+          <span class="tag">Install failed</span>
+          <span class="tag">Bot silent</span>
+          <span class="tag">Invalid API key</span>
+          <span class="tag">Skill not working</span>
+          <span class="tag">Browser automation failed</span>
+          <span class="tag">Daemon not running</span>
+          <span class="tag">Permission denied</span>
+          <span class="tag">Logs are confusing</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="grid cols-2">
+        <article class="card">
+          <div class="lang lang-en"><h3>Or browse by component</h3><p>Install, Channels, Models, Skills, Local system, Logs, Security.</p></div>
+          <div class="lang lang-zh"><h3>或者按模块浏览</h3><p>安装、渠道、模型、技能、本地系统、日志、安全。</p></div>
+          <div class="tag-row"><span class="tag">Install</span><span class="tag">Channels</span><span class="tag">Models</span><span class="tag">Skills</span><span class="tag">Logs</span><span class="tag">Security</span></div>
+        </article>
+        <article class="card">
+          <div class="lang lang-en"><h3>Common fixes</h3></div>
+          <div class="lang lang-zh"><h3>高频修复问题</h3></div>
+          <ul class="list">
+            <li>Bot not responding after setup</li>
+            <li>Skill installed but nothing happens</li>
+            <li>Model requests fail silently</li>
+            <li>Browser automation fails mid-run</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <article class="card">
+        <div class="lang lang-en"><h2>Quick checks</h2><p class="small">Use these before you guess at the root cause.</p></div>
+        <div class="lang lang-zh"><h2>快速排查</h2><p class="small">在你猜问题之前，先把这些检查做完。</p></div>
+        <div class="grid cols-2" style="margin-top:14px">
+          <article class="card"><h3>Check status</h3><p>Use this when you want a fast read on whether the system is up.</p></article>
+          <article class="card"><h3>Check health</h3><p>Confirm that the environment is healthy enough for normal task execution.</p></article>
+          <article class="card"><h3>Check logs</h3><p>Look for recent errors, warnings, or silent failures.</p></article>
+          <article class="card"><h3>Reconfigure basics</h3><p>Use this if your channel, model, or critical settings changed.</p></article>
+        </div>
+        <div class="command-box" style="margin-top:14px">
+          <code>openclaw status
+openclaw health
+openclaw logs --tail 120
+openclaw reconfigure</code>
+        </div>
+        <div class="cta-row"><a class="btn primary" href="#">Copy Command</a></div>
+      </article>
+    </section>
+
+    <section class="section">
+      <article class="callout">
+        <div class="lang lang-en"><h3>Still not sure where to start?</h3><p class="sub">If your setup is incomplete, start with the Setup lessons. If you want a simple end-to-end test, use a beginner template.</p></div>
+        <div class="lang lang-zh"><h3>还是不知道从哪里开始？</h3><p class="sub">如果你的环境可能还没配完整，先看 Setup 课程。如果你想做一个简单的端到端测试，可以直接跑一个入门模板。</p></div>
+        <div class="cta-row"><a class="btn secondary" href="./learn.html">Read Setup Guides</a><a class="btn primary" href="./templates.html">Try a Beginner Template</a></div>
+      </article>
+    </section>
+
+    <footer class="footer">OpenClaw Playbook prototype · Troubleshoot</footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
