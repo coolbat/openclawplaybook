@@ -1,540 +1,514 @@
-import Link from "next/link";
 import { CopyPair } from "@/components/content";
+import { JsonLd } from "@/components/json-ld";
+import { PageHero } from "@/components/page-hero";
+import { QuickStartCard } from "@/components/quick-start-card";
+import { SectionHeading } from "@/components/section-heading";
 import { SiteShell } from "@/components/site-shell";
+import { TemplateCard } from "@/components/template-card";
+import { createPageMetadata } from "@/lib/metadata";
+import { getRequestLocale } from "@/lib/i18n-server";
+import { pickLocalizedText } from "@/lib/i18n";
+import { absoluteLocalizedUrl, absoluteUrl, officialLinks, siteName, siteUrl } from "@/lib/site";
+import {
+  homeFaq,
+  homeHero,
+  learnPreview,
+  quickStartEntries,
+  quickStartIntro,
+  templatePreview,
+  troubleshootPreview,
+} from "@/content/site";
+import { featuredTemplates } from "@/content/templates";
+import type { Metadata } from "next";
 
-const popularTemplates = [
-  {
-    title: "Daily AI News Digest",
-    desc: "Track what matters, remove noise, and send a concise daily briefing.",
-    tags: ["Research", "Beginner", "Scheduled"],
-    meta: "20 min · Low risk",
-  },
-  {
-    title: "YouTube Comment Pain Point Analyzer",
-    desc: "Collect comments, identify repeated pain points, and surface unmet user needs.",
-    tags: ["Research", "Growth"],
-    meta: "35 min · Medium risk",
-  },
-  {
-    title: "Feishu AI Briefing Bot",
-    desc: "Push structured updates to Feishu for your personal workflow or team routine.",
-    tags: ["Chinese Ecosystem", "Productivity"],
-    meta: "25 min · Low risk",
-  },
-  {
-    title: "Weekly Market Research Summary",
-    desc: "Monitor changes, compare signals, and generate a weekly research memo.",
-    tags: ["Strategy", "Operator"],
-    meta: "40 min · Medium risk",
-  },
-  {
-    title: "Server Health Alert Bot",
-    desc: "Watch service health and send alerts before small issues turn into bigger ones.",
-    tags: ["DevOps", "Monitoring"],
-    meta: "30 min · Medium risk",
-  },
-  {
-    title: "Content Idea Collector",
-    desc: "Turn scattered sources into structured ideas for writing, strategy, or publishing.",
-    tags: ["Creator", "Productivity"],
-    meta: "20 min · Low risk",
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
 
-export default function HomePage() {
+  return createPageMetadata({
+    locale,
+    title: {
+      en: "Quick Start for OpenClaw Beginners",
+      zh: "OpenClaw 新手 Quick Start",
+    },
+    description: {
+      en: "OpenClaw quick start for beginners: learn the system, finish setup, connect one channel, and run your first useful workflow.",
+      zh: "OpenClaw 新手快速上手：先建立系统认知，完成 setup、渠道接通和首个入门工作流验证，再在首次失败时快速回到正确的排错路径，避免长期卡在环境和技能层面的伪问题里。",
+    },
+    path: "/",
+    keywords: {
+      en: [
+        "OpenClaw quick start",
+        "OpenClaw beginner guide",
+        "OpenClaw setup",
+        "OpenClaw first workflow",
+        "OpenClaw onboarding",
+      ],
+      zh: [
+        "OpenClaw 快速上手",
+        "OpenClaw 新手指南",
+        "OpenClaw setup",
+        "OpenClaw 第一个工作流",
+        "OpenClaw 入门",
+      ],
+    },
+  });
+}
+
+export default async function HomePage() {
+  const locale = await getRequestLocale();
+  const homePageName =
+    locale === "zh" ? "OpenClaw 新手 Quick Start" : "Quick Start for OpenClaw Beginners";
+  const homepageSummary = pickLocalizedText(homeHero.summary, locale);
+  const faqEntities = homeFaq.map((item) => ({
+    "@type": "Question",
+    name: pickLocalizedText(item.question, locale),
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: pickLocalizedText(item.answer, locale),
+    },
+  }));
+
   return (
     <SiteShell active="home" defaultTheme="light">
-      <section className="hero">
-        <article className="hero-main">
-          <span className="kicker">Lobster-light. Agent-right.</span>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: siteName,
+            url: siteUrl,
+            inLanguage: locale === "zh" ? "zh-CN" : "en",
+            description: homepageSummary,
+            publisher: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
+            sameAs: officialLinks.map((link) => link.href),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: siteName,
+            url: siteUrl,
+            logo: absoluteUrl("/icon.svg"),
+            sameAs: officialLinks.map((link) => link.href),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: homePageName,
+            url: absoluteLocalizedUrl("/", locale),
+            inLanguage: locale === "zh" ? "zh-CN" : "en",
+            description: homepageSummary,
+            isPartOf: {
+              "@type": "WebSite",
+              name: siteName,
+              url: siteUrl,
+            },
+            breadcrumb: {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: locale === "zh" ? "首页" : "Home",
+                  item: absoluteLocalizedUrl("/", locale),
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Quick Start",
+                  item: absoluteLocalizedUrl("/", locale),
+                },
+              ],
+            },
+            mainEntity: faqEntities,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: locale === "zh" ? "首页" : "Home",
+                item: absoluteLocalizedUrl("/", locale),
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Quick Start",
+                item: absoluteLocalizedUrl("/", locale),
+              },
+            ],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqEntities,
+          },
+        ]}
+      />
+      <PageHero
+        className="home-hero"
+        kicker={homeHero.kicker}
+        title={homeHero.title}
+        summary={homeHero.summary}
+        ctas={homeHero.ctas}
+        children={
           <CopyPair
             en={
-              <>
-                <h1>Learn OpenClaw by building real workflows</h1>
-                <p className="sub">
-                  Bilingual guides, practical templates, curated skills, and troubleshooting
-                  paths for people who want to make OpenClaw actually work.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h1>用真正能跑起来的工作流，学会 OpenClaw</h1>
-                <p className="sub">
-                  面向英文与中文用户的双语学习平台，提供实战教程、可复用模板、精选技能和排错路径，
-                  帮你把 OpenClaw 真正跑起来。
-                </p>
-              </>
-            }
-          />
-          <div className="cta-row">
-            <Link className="btn primary" href="/learn">
-              Start Learning
-            </Link>
-            <Link className="btn secondary" href="/templates">
-              Browse Templates
-            </Link>
-            <Link className="btn link" href="/troubleshoot">
-              Already stuck? Open Troubleshoot
-            </Link>
-          </div>
-          <div className="badges">
-            <span className="badge">English + Chinese</span>
-            <span className="badge">Beginner-friendly</span>
-            <span className="badge">Real workflows</span>
-            <span className="badge">Safer skill guidance</span>
-          </div>
-        </article>
-        <aside className="hero-side">
-          <CopyPair
-            en={
-              <>
-                <h3>Featured workflow</h3>
-                <p className="sub">Daily AI News Digest</p>
-                <p className="meta">
-                  Collect the most important AI updates, summarize them, and send a clean daily
-                  briefing to your channel.
-                </p>
-                <h3 style={{ marginTop: 18 }}>Starter skill pack</h3>
-                <p className="meta">
-                  Install the research essentials and get a useful workflow running faster.
-                </p>
-                <h3 style={{ marginTop: 18 }}>Need a fix?</h3>
-                <p className="meta">
-                  Bot not responding? Start with channel pairing, daemon status, and API
-                  verification.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h3>推荐工作流</h3>
-                <p className="sub">每日 AI 资讯简报</p>
-                <p className="meta">聚合重要 AI 动态，自动摘要，并发送到你常用的聊天渠道。</p>
-                <h3 style={{ marginTop: 18 }}>入门技能包</h3>
-                <p className="meta">先安装基础研究技能，能更快把第一个工作流跑起来。</p>
-                <h3 style={{ marginTop: 18 }}>遇到问题？</h3>
-                <p className="meta">
-                  机器人没回复？先检查渠道配对、后台进程状态和 API 配置。
-                </p>
-              </>
-            }
-          />
-        </aside>
-      </section>
-
-      <section className="section">
-        <div className="section-head">
-          <CopyPair
-            en={<h2>Choose the fastest path for where you are</h2>}
-            zh={<h2>根据你现在的阶段，选择最快的起步路径</h2>}
-          />
-        </div>
-        <div className="grid cols-3">
-          <article className="card">
-            <CopyPair
-              en={
-                <>
-                  <h3>I’m new to OpenClaw</h3>
-                  <p>
-                    Start from the basics, understand how OpenClaw works, and get your first bot
-                    running with confidence.
-                  </p>
-                </>
-              }
-              zh={
-                <>
-                  <h3>我是 OpenClaw 新手</h3>
-                  <p>从基础开始，理解 OpenClaw 的工作方式，并把第一个机器人顺利跑起来。</p>
-                </>
-              }
-            />
-            <div className="cta-row">
-              <Link className="btn secondary" href="/learn">
-                Start from Learn
-              </Link>
-            </div>
-          </article>
-          <article className="card">
-            <CopyPair
-              en={
-                <>
-                  <h3>I want a ready-to-use workflow</h3>
-                  <p>Skip the abstract setup maze and start with templates that solve real tasks.</p>
-                </>
-              }
-              zh={
-                <>
-                  <h3>我想直接用现成工作流</h3>
-                  <p>跳过抽象的配置迷宫，直接从能解决真实任务的模板开始。</p>
-                </>
-              }
-            />
-            <div className="cta-row">
-              <Link className="btn secondary" href="/templates">
-                Open Templates
-              </Link>
-            </div>
-          </article>
-          <article className="card">
-            <CopyPair
-              en={
-                <>
-                  <h3>I’m stuck somewhere</h3>
-                  <p>
-                    Diagnose installation, model, channel, skill, and permission issues step by
-                    step.
-                  </p>
-                </>
-              }
-              zh={
-                <>
-                  <h3>我现在卡在某一步</h3>
-                  <p>按步骤排查安装、模型、渠道、技能和权限问题。</p>
-                </>
-              }
-            />
-            <div className="cta-row">
-              <Link className="btn secondary" href="/troubleshoot">
-                Open Troubleshoot
-              </Link>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <CopyPair
-              en={
-                <>
-                  <h2>Popular templates</h2>
-                  <p className="small">
-                    Start with workflows that produce useful results, not toy demos.
-                  </p>
-                </>
-              }
-              zh={
-                <>
-                  <h2>热门模板</h2>
-                  <p className="small">
-                    从真正能产生价值的工作流开始，而不是停留在演示性质的玩法上。
-                  </p>
-                </>
-              }
-            />
-          </div>
-          <Link className="btn secondary" href="/templates">
-            View all templates
-          </Link>
-        </div>
-        <div className="grid cols-3">
-          {popularTemplates.map((template) => (
-            <article className="card" key={template.title}>
-              <h3>{template.title}</h3>
-              <p>{template.desc}</p>
-              <div className="tag-row">
-                {template.tags.map((tag) => (
-                  <span className="tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
+              <div className="home-signal-strip">
+                <div className="home-signal-card home-signal-card-primary">
+                  <span className="hero-rail-label">Primary route</span>
+                  <strong>5 linked step guides</strong>
+                  <p>One guided path from mental model to first useful loop.</p>
+                </div>
+                <div className="home-signal-card">
+                  <span className="hero-rail-label">Outcome</span>
+                  <strong>Channel + result + recovery</strong>
+                  <p>Get one real loop working and know where to go when it fails.</p>
+                </div>
               </div>
-              <p className="meta">{template.meta}</p>
-            </article>
+            }
+            zh={
+              <div className="home-signal-strip">
+                <div className="home-signal-card home-signal-card-primary">
+                  <span className="hero-rail-label">主路径</span>
+                  <strong>5 个串联步骤指南</strong>
+                  <p>从认知建立到第一个有用工作流，沿着一条路径往下走。</p>
+                </div>
+                <div className="home-signal-card">
+                  <span className="hero-rail-label">结果</span>
+                  <strong>渠道 + 结果 + 恢复路径</strong>
+                  <p>先跑通一个真实闭环，并在失败时知道下一步去哪里。</p>
+                </div>
+              </div>
+            }
+          />
+        }
+        aside={
+          <CopyPair
+            en={
+              <div className="hero-briefing">
+                <div className="hero-briefing-head">
+                  <p className="eyebrow">First-run control panel</p>
+                  <h2>{homeHero.sideTitle.en}</h2>
+                </div>
+                <div className="hero-briefing-stack">
+                  {homeHero.sideItems.map((item, index) => (
+                    <div className="hero-briefing-row" key={item.en}>
+                      <span>{`0${index + 1}`}</span>
+                      <p>{item.en}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="hero-briefing-note">
+                  <span>Target time</span>
+                  <strong>30 minutes</strong>
+                  <p>Enough to establish the mental model and prove one useful workflow.</p>
+                </div>
+              </div>
+            }
+            zh={
+              <div className="hero-briefing">
+                <div className="hero-briefing-head">
+                  <p className="eyebrow">First-run control panel</p>
+                  <h2>{homeHero.sideTitle.zh}</h2>
+                </div>
+                <div className="hero-briefing-stack">
+                  {homeHero.sideItems.map((item, index) => (
+                    <div className="hero-briefing-row" key={item.zh}>
+                      <span>{`0${index + 1}`}</span>
+                      <p>{item.zh}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="hero-briefing-note">
+                  <span>目标时长</span>
+                  <strong>30 分钟</strong>
+                  <p>足够建立正确认知，并验证一个真实有用的工作流。</p>
+                </div>
+              </div>
+            }
+          />
+        }
+      />
+
+      <section className="section section-quickstart" id="quick-start">
+        <SectionHeading title={quickStartIntro.title} summary={quickStartIntro.summary} />
+        <CopyPair
+          en={
+            <div className="quick-start-overview callout">
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">Format</span>
+                <strong>5 linked step guides</strong>
+                <p>Each card opens a dedicated tutorial instead of hiding the detail in the homepage.</p>
+              </div>
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">Goal</span>
+                <strong>From setup to one useful loop</strong>
+                <p>Use the path to establish the mental model, verify the stack, connect one channel, and ship one result.</p>
+              </div>
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">If it breaks</span>
+                <strong>Route into Troubleshoot quickly</strong>
+                <p>The last step is there so first-run failure becomes a recoverable path instead of a dead end.</p>
+              </div>
+            </div>
+          }
+          zh={
+            <div className="quick-start-overview callout">
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">形式</span>
+                <strong>5 个可点击步骤指南</strong>
+                <p>每张卡片都会进入独立教程页，而不是把所有细节都塞在首页里。</p>
+              </div>
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">目标</span>
+                <strong>从 setup 到一条有用闭环</strong>
+                <p>沿着这条路径建立正确认知、验证环境、接通渠道，并跑出第一个真实结果。</p>
+              </div>
+              <div className="quick-start-overview-item">
+                <span className="hero-rail-label">如果失败</span>
+                <strong>快速切回 Troubleshoot</strong>
+                <p>最后一步就是为了让首次失败变成可恢复路径，而不是直接卡死在首页。</p>
+              </div>
+            </div>
+          }
+        />
+        <div className="grid cols-2 quick-start-grid">
+          {quickStartEntries.map((entry) => (
+            <QuickStartCard entry={entry} key={entry.id} />
           ))}
         </div>
       </section>
 
-      <section className="section">
-        <article className="card">
-          <CopyPair
-            en={
-              <>
-                <h2>A practical path to mastering OpenClaw</h2>
-                <p className="small">
-                  From first principles to useful workflows, with less guessing and more shipping.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h2>一条更务实的 OpenClaw 学习路径</h2>
-                <p className="small">从理解原理到跑通真实工作流，少走弯路，更快落地。</p>
-              </>
-            }
-          />
-          <div className="grid cols-2" style={{ marginTop: 14 }}>
-            {[
-              ["01 Foundations", "Understand what OpenClaw is, how it differs from chatbots, and why execution matters."],
-              ["02 Setup", "Install OpenClaw, connect a channel, configure your model, and verify your environment."],
-              ["03 Skills & Workflows", "Learn how skills work, how to choose them safely, and how to combine them into useful workflows."],
-              ["04 Real-world Use Cases", "Apply OpenClaw to research, content, operations, and monitoring."],
-            ].map(([title, desc]) => (
-              <article className="card" key={title}>
-                <h3>{title}</h3>
-                <p>{desc}</p>
+      <section className="section section-preview section-learn-preview home-module home-module-learn">
+        <SectionHeading
+          title={learnPreview.title}
+          summary={learnPreview.summary}
+          action={learnPreview.cta}
+        />
+        <div className="home-module-shell home-module-shell-learn">
+          <article className="callout home-module-panel home-module-panel-learn">
+            <CopyPair
+              en={
+                <>
+                  <p className="eyebrow">Knowledge module</p>
+                  <h3>Deepen the system model before you scale the setup.</h3>
+                  <p>Use Learn for setup strategy, workflow design, and stronger recovery habits.</p>
+                </>
+              }
+              zh={
+                <>
+                  <p className="eyebrow">Knowledge module</p>
+                  <h3>在扩展 setup 之前，先把系统理解补扎实。</h3>
+                  <p>Learn 负责补 setup 策略、工作流设计和更稳的恢复习惯。</p>
+                </>
+              }
+            />
+          </article>
+          <div className="grid cols-3 preview-grid">
+            {learnPreview.cards.map((card) => (
+              <article className="card learn-preview-card" key={card.title.en}>
+                <CopyPair
+                  en={
+                    <>
+                      <h3>{card.title.en}</h3>
+                      <p>{card.summary.en}</p>
+                    </>
+                  }
+                  zh={
+                    <>
+                      <h3>{card.title.zh}</h3>
+                      <p>{card.summary.zh}</p>
+                    </>
+                  }
+                />
               </article>
             ))}
           </div>
-        </article>
+        </div>
       </section>
 
-      <section className="section">
-        <article className="callout">
-          <CopyPair
-            en={
-              <>
-                <h2>Stuck? Start from the symptom</h2>
-                <p className="small">
-                  Don’t guess. Start from what you see, then narrow the problem down fast.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h2>卡住了？从现象开始排查</h2>
-                <p className="small">别猜。先从你看到的问题出发，再快速缩小范围。</p>
-              </>
-            }
-          />
-          <div className="tag-row" style={{ marginTop: 10 }}>
-            {[
-              "Install failed",
-              "Bot not responding",
-              "Invalid API key",
-              "Skill installed but not working",
-              "Browser automation failed",
-              "Daemon not running",
-            ].map((item) => (
-              <span className="tag" key={item}>
-                {item}
-              </span>
+      <section className="section section-preview section-templates-preview home-module home-module-templates">
+        <SectionHeading title={templatePreview.title} summary={templatePreview.summary} />
+        <div className="home-module-shell home-module-shell-templates">
+          <article className="callout home-module-panel home-module-panel-templates">
+            <CopyPair
+              en={
+                <>
+                  <p className="eyebrow">Results module</p>
+                  <h3>Use templates when you need proof, not more theory.</h3>
+                  <p>Use templates to get to a visible result fast.</p>
+                </>
+              }
+              zh={
+                <>
+                  <p className="eyebrow">Results module</p>
+                  <h3>当你需要结果证明时，先跑模板，而不是继续补理论。</h3>
+                  <p>模板的作用是尽快做出一个可见结果，证明系统真的能产出价值。</p>
+                </>
+              }
+            />
+            <div className="home-module-stats">
+              <CopyPair
+                en={
+                  <>
+                    <div>
+                      <span>Use when</span>
+                      <strong>Basics already work</strong>
+                    </div>
+                    <div>
+                      <span>Best outcome</span>
+                      <strong>One visible first workflow</strong>
+                    </div>
+                  </>
+                }
+                zh={
+                  <>
+                    <div>
+                      <span>适用时机</span>
+                      <strong>基础已经能跑</strong>
+                    </div>
+                    <div>
+                      <span>最佳结果</span>
+                      <strong>先跑出第一条可见工作流</strong>
+                    </div>
+                  </>
+                }
+              />
+            </div>
+          </article>
+          <div className="grid cols-3 preview-grid">
+            {featuredTemplates.slice(0, 3).map((entry, index) => (
+              <TemplateCard
+                entry={entry}
+                key={entry.title.en}
+                locale={locale}
+                variant={index === 0 ? "featured" : "default"}
+                showTags={false}
+                ctaVariantOverride="secondary"
+              />
             ))}
           </div>
-          <div className="grid cols-2" style={{ marginTop: 14 }}>
-            <article className="card">
-              <h3>Bot not responding</h3>
-              <p>
-                Possible causes include incomplete channel pairing, a stopped daemon, missing
-                permissions, or invalid model settings.
-              </p>
-            </article>
-            <article className="card">
-              <h3>Quick checks</h3>
-              <ul className="list">
-                <li>Verify your channel pairing</li>
-                <li>Confirm the daemon is running</li>
-                <li>Test your model/API configuration</li>
-                <li>Review recent logs</li>
-              </ul>
-            </article>
-          </div>
-          <div className="cta-row">
-            <Link className="btn primary" href="/troubleshoot">
-              Diagnose this issue
-            </Link>
-          </div>
-        </article>
+        </div>
       </section>
 
-      <section className="section">
-        <div className="section-head">
+      <section className="section section-preview section-troubleshoot-preview home-module home-module-troubleshoot">
+        <SectionHeading
+          title={troubleshootPreview.title}
+          summary={troubleshootPreview.summary}
+          action={troubleshootPreview.cta}
+        />
+        <div className="home-troubleshoot-board callout troubleshoot-preview">
           <CopyPair
             en={
               <>
-                <h2>Skills, templates, and ecosystem shortcuts</h2>
-                <p className="small">
-                  OpenClaw becomes more useful when you know what to install, what to avoid, and
-                  what to combine.
-                </p>
+                <div className="home-troubleshoot-main">
+                  <p className="eyebrow">Recovery module</p>
+                  <h3>Start from the visible symptom, not from panic.</h3>
+                  <p>
+                    When the first run fails, Troubleshoot helps you narrow the fault before you
+                    change five variables at once.
+                  </p>
+                  <div className="tag-row">
+                    {troubleshootPreview.bullets.en.map((item) => (
+                      <span className="tag" key={item}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="troubleshoot-preview-strip">
+                  <div>
+                    <span className="hero-rail-label">Step 01</span>
+                    <strong>Observed symptom</strong>
+                    <p>What exactly failed: silence, install, credentials, or output.</p>
+                  </div>
+                  <div>
+                    <span className="hero-rail-label">Step 02</span>
+                    <strong>Status and logs</strong>
+                    <p>Check the nearest process, log, or channel loop before reconfiguring.</p>
+                  </div>
+                  <div>
+                    <span className="hero-rail-label">Step 03</span>
+                    <strong>Route back into action</strong>
+                    <p>Return to setup, templates, or a narrower workflow once the symptom is clear.</p>
+                  </div>
+                </div>
               </>
             }
             zh={
               <>
-                <h2>技能、模板与生态捷径</h2>
-                <p className="small">
-                  当你知道该装什么、避开什么、组合什么时，OpenClaw 才会真正变得好用。
-                </p>
+                <div className="home-troubleshoot-main">
+                  <p className="eyebrow">Recovery module</p>
+                  <h3>从可观察症状开始，而不是从慌乱开始。</h3>
+                  <p>
+                    当首次运行失败时，Troubleshoot 会先帮你缩小故障范围，而不是一口气改五个变量。
+                  </p>
+                  <div className="tag-row">
+                    {troubleshootPreview.bullets.zh.map((item) => (
+                      <span className="tag" key={item}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="troubleshoot-preview-strip">
+                  <div>
+                    <span className="hero-rail-label">步骤 01</span>
+                    <strong>先看可见症状</strong>
+                    <p>先确认到底是机器人沉默、安装失败、凭证问题，还是输出不对。</p>
+                  </div>
+                  <div>
+                    <span className="hero-rail-label">步骤 02</span>
+                    <strong>再看状态与日志</strong>
+                    <p>先看离现象最近的进程、日志和渠道闭环，不要先重配系统。</p>
+                  </div>
+                  <div>
+                    <span className="hero-rail-label">步骤 03</span>
+                    <strong>然后回到行动路径</strong>
+                    <p>症状明确后，再回到 setup、模板或更窄的工作流继续推进。</p>
+                  </div>
+                </div>
               </>
             }
           />
-        </div>
-        <div className="grid cols-2">
-          <article className="card">
-            <h3>Starter-friendly skill picks</h3>
-            <p>
-              Start with skills that are easier to understand, safer to verify, and more likely to
-              fit real workflows.
-            </p>
-            <div className="cta-row">
-              <Link className="btn secondary" href="#">
-                Browse Skills
-              </Link>
-            </div>
-          </article>
-          <article className="card">
-            <div className="grid cols-2">
-              {[
-                ["Skills", "Curated recommendations with use cases and risk notes."],
-                ["Templates", "Ready-to-run workflows built around practical tasks."],
-                ["Resources", "Official docs, community guides, and useful references."],
-                ["Trust Center", "Safer setup, permissions, cost basics, and audit habits."],
-              ].map(([title, desc]) => (
-                <article className="card" key={title}>
-                  <h3>{title}</h3>
-                  <p>{desc}</p>
-                </article>
-              ))}
-            </div>
-          </article>
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-head">
-          <CopyPair
-            en={
-              <>
-                <h2>Use OpenClaw with more confidence</h2>
-                <p className="small">
-                  Good automation should also be understandable, reviewable, and safe enough to
-                  reuse.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h2>更安心地使用 OpenClaw</h2>
-                <p className="small">好的自动化不只是强大，还应该易理解、可回看、可复用。</p>
-              </>
-            }
-          />
-        </div>
-        <div className="grid cols-2">
-          <article className="card">
-            <h3>Skill Safety</h3>
-            <p>
-              Learn how to evaluate a skill before installing it, what permissions to inspect, and
-              when to avoid untrusted sources.
-            </p>
-            <div className="cta-row">
-              <Link className="btn secondary" href="#">
-                Visit Skill Safety
-              </Link>
-            </div>
-          </article>
-          <article className="card">
-            <h3>Cost & Audit</h3>
-            <p>
-              Estimate recurring workflow cost, review outputs more responsibly, and build
-              healthier debugging habits.
-            </p>
-            <div className="cta-row">
-              <Link className="btn secondary" href="#">
-                Visit Cost Guide
-              </Link>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="section">
-        <article className="card">
-          <CopyPair
-            en={
-              <>
-                <h2>One ecosystem, localized for two markets</h2>
-                <p className="small">
-                  English and Chinese users often need different channels, tools, and deployment
-                  paths. We design for both.
-                </p>
-              </>
-            }
-            zh={
-              <>
-                <h2>同一个生态，面向两个市场做本地化</h2>
-                <p className="small">
-                  英文用户和中文用户往往需要不同的渠道、工具和部署路径，我们会同时为两者设计。
-                </p>
-              </>
-            }
-          />
-          <div className="dual" style={{ marginTop: 14 }}>
-            <div className="lang-panel">
-              <h3>English-first path</h3>
-              <ul className="list">
-                <li>Telegram and Discord</li>
-                <li>VPS and local setup</li>
-                <li>CLI-first guidance</li>
-                <li>Global tooling references</li>
-              </ul>
-            </div>
-            <div className="lang-panel">
-              <h3>中文路径</h3>
-              <ul className="list">
-                <li>飞书与钉钉</li>
-                <li>腾讯云与本地环境</li>
-                <li>更细致的图文步骤</li>
-                <li>更贴近中文工作流的案例</li>
-              </ul>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="section">
-        <div className="section-head">
-          <CopyPair
-            en={<h2>What people are building</h2>}
-            zh={<h2>大家都在用它做什么</h2>}
-          />
-          <Link className="btn secondary" href="#">
-            See Community Builds
-          </Link>
-        </div>
-        <div className="grid cols-3">
-          {[
-            ["Morning AI Briefing", "A founder receives ranked AI updates in Feishu before the workday starts."],
-            ["Research Assistant", "A team clusters public comments into recurring pain points and opportunity signals."],
-            ["Ops Monitor", "An indie developer watches service health and receives actionable alerts."],
-          ].map(([title, desc]) => (
-            <article className="card" key={title}>
-              <h3>{title}</h3>
-              <p>{desc}</p>
+      <section className="section section-faq">
+        <SectionHeading
+          title={{ en: "FAQ for first-run users", zh: "面向首次上手用户的 FAQ" }}
+          summary={{
+            en: "This extra context supports beginner search intent without forcing users into a long article.",
+            zh: "这些补充信息用来承接新手搜索意图，但不会把首页拉成长文章。",
+          }}
+        />
+        <div className="grid cols-2 faq-grid">
+          {homeFaq.map((item) => (
+            <article className="card faq-card" key={item.question.en}>
+              <CopyPair
+                en={
+                  <>
+                    <h3>{item.question.en}</h3>
+                    <p>{item.answer.en}</p>
+                  </>
+                }
+                zh={
+                  <>
+                    <h3>{item.question.zh}</h3>
+                    <p>{item.answer.zh}</p>
+                  </>
+                }
+              />
             </article>
           ))}
         </div>
       </section>
-
-      <section className="section">
-        <article className="card">
-          <CopyPair
-            en={
-              <>
-                <h2>Get new templates, fixes, and ecosystem updates</h2>
-                <p>A practical OpenClaw digest for builders, operators, and curious tinkerers.</p>
-              </>
-            }
-            zh={
-              <>
-                <h2>接收新模板、排错更新和生态动态</h2>
-                <p>一份面向构建者、操盘者和探索者的实用 OpenClaw 通讯。</p>
-              </>
-            }
-          />
-          <div className="newsletter-form">
-            <input className="search" placeholder="Enter your email / 输入你的邮箱" />
-            <button className="btn primary" type="button">
-              Subscribe / 订阅
-            </button>
-          </div>
-          <p className="meta">No spam. Just useful updates.</p>
-        </article>
-      </section>
-
-      <footer className="footer">OpenClaw Playbook · Home</footer>
     </SiteShell>
   );
 }
