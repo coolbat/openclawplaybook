@@ -1,0 +1,21 @@
+---
+title: Run the shortest health loop first
+summary: You are not sure whether the failure belongs to setup, runtime health, or one specific workflow.
+readingTime: 3 min
+---
+
+## What this symptom usually means
+
+You do not have enough evidence yet. The risk is not a single bug. The risk is spending an hour in the wrong layer.
+
+## First recovery loop
+
+Run status, health, and a short logs tail before changing any configuration. This gives you one baseline view of system state.
+
+## What to verify next
+
+Decide whether the problem belongs to setup, runtime health, or workflow design. Only then should you go deeper.
+
+## If the issue persists
+
+Document the first clear failing signal and use it as your fixed reproduction point. Without that, all deeper debugging becomes noisier.

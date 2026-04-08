@@ -1,0 +1,21 @@
+---
+title: Read status before logs
+summary: Logs are noisy, and you do not know which lines matter.
+readingTime: 3 min
+---
+
+## What this symptom usually means
+
+Logs are giving you too much raw information without enough context. Status narrows the search space before logs become useful.
+
+## First recovery loop
+
+Identify which subsystem is unhealthy first. Then filter logs around one failure window instead of reading everything at once.
+
+## What to verify next
+
+Write down one concrete hypothesis before the next config change. That makes each log reading session more intentional and less reactive.
+
+## If the issue persists
+
+Return to a shorter health loop and simplify the reproduction again. Better evidence usually beats deeper logging.

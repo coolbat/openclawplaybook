@@ -1,0 +1,33 @@
+---
+title: "Deploy / Install"
+summary: "Choose the smallest path that lets you prove the stack is alive."
+readingTime: "5 min"
+---
+
+The first install should optimize for **verification speed**, not completeness.
+
+## What “good enough” looks like
+
+For a beginner, a good installation is one that lets you answer yes to these questions:
+
+- Does the process start cleanly?
+- Does one model provider authenticate?
+- Can I inspect logs when something fails?
+
+If yes, the setup is good enough to continue.
+
+## Installation checklist
+
+1. Start with the simplest supported path, usually local.
+2. Add one model provider and verify the credential immediately.
+3. Confirm the base process is healthy before adding extra services.
+
+> Every optional dependency you add before the first health check makes debugging slower.
+
+## Common beginner mistake
+
+People often treat setup like infrastructure design. They keep improving the environment long before the first useful workflow exists.
+
+## A better next move
+
+Once the base stack is alive, move to **one chat channel**. A system that starts but cannot receive and answer a message is still unfinished.

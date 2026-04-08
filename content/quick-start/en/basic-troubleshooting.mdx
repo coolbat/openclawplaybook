@@ -1,0 +1,35 @@
+---
+title: "Basic Troubleshooting"
+summary: "Most first-run failures are missing verification steps, not mysterious platform bugs."
+readingTime: "4 min"
+---
+
+When the first run fails, the fastest path is to narrow the symptom instead of changing multiple variables at once.
+
+## First checks
+
+Start with the shortest verification loop:
+
+- Is the process running?
+- Is the model credential valid?
+- Is the channel paired correctly?
+- Do logs show a clear error?
+
+## How to avoid random debugging
+
+Use this order:
+
+1. confirm the visible symptom
+2. inspect the nearest log or health signal
+3. change one variable
+4. retry once
+
+That sequence usually reveals whether you are dealing with setup, channel, credential, or workflow scope.
+
+## Common beginner mistake
+
+Users often react to failure by changing the prompt, the model, and the environment all at once. That destroys the only useful evidence.
+
+## A better next move
+
+After you identify the symptom clearly, jump into the dedicated Troubleshoot path and continue from the matching recovery guide.

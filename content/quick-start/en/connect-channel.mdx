@@ -1,0 +1,34 @@
+---
+title: "Connect a Chat Channel"
+summary: "Your first real milestone is a successful message loop, not a finished installation."
+readingTime: "4 min"
+---
+
+Installation only proves the process can start. A connected channel proves the system can **receive, route, and answer**.
+
+## What success looks like
+
+You send one test message through a real channel and get one real response back.
+
+That sounds small, but it removes a huge amount of uncertainty:
+
+- the bot is reachable
+- the channel binding works
+- the message path is valid
+- basic runtime behavior is visible
+
+## Keep the first channel simple
+
+Use the channel that is easiest for you to inspect and retry, such as:
+
+- Telegram
+- Feishu
+- another already-supported chat entry point
+
+## Common beginner mistake
+
+When the bot stays silent, many users start adding skills or rewriting prompts. That usually makes the signal worse.
+
+## A better next move
+
+If the channel works, move to **one starter workflow**. If the channel fails, treat it as a channel problem first, not a workflow problem.
