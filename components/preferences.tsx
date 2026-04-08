@@ -1,26 +1,61 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  defaultLocale,
+  localeCookieName,
+  switchLocaleInPathname,
+  type Locale,
+} from "@/lib/i18n";
 
 type Theme = "light" | "dark";
-type Lang = "zh" | "en" | "both";
+const explicitPreferenceKey = "oc101-lang-explicit";
 
 type PreferencesProps = {
   defaultTheme?: Theme;
+  defaultLang?: Locale;
 };
+
+function getInitialTheme(defaultTheme: Theme): Theme {
+  if (typeof window === "undefined") {
+    return defaultTheme;
+  }
+
+  return (
+    (localStorage.getItem("oc101-theme") as Theme) ||
+    (document.body.dataset.theme as Theme) ||
+    defaultTheme
+  );
+}
+
+function getInitialLang(defaultLang: Locale): Locale {
+  if (typeof window === "undefined") {
+    return defaultLang;
+  }
+
+  const storedLang =
+    (localStorage.getItem(localeCookieName) as Locale | null) ||
+    (document.body.dataset.lang as Locale | undefined);
+
+  return storedLang === "en" ? "en" : defaultLang;
+}
 
 export function PreferenceControls({
   defaultTheme = "light",
+  defaultLang = defaultLocale,
 }: PreferencesProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
-  const [lang, setLang] = useState<Lang>("zh");
+  const router = useRouter();
+  const pathname = usePathname();
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme(defaultTheme));
+  const [lang, setLang] = useState<Locale>(() => getInitialLang(defaultLang));
 
-  useEffect(() => {
-    const storedTheme = (localStorage.getItem("oc101-theme") as Theme) || defaultTheme;
-    const storedLang = (localStorage.getItem("oc101-lang") as Lang) || "zh";
-    setTheme(storedTheme);
-    setLang(storedLang);
-  }, [defaultTheme]);
+  function persistLang(nextLang: Locale) {
+    document.body.dataset.lang = nextLang;
+    document.documentElement.lang = nextLang === "zh" ? "zh-CN" : "en";
+    document.cookie = `${localeCookieName}=${nextLang}; path=/; max-age=31536000; samesite=lax`;
+    localStorage.setItem(localeCookieName, nextLang);
+  }
 
   useEffect(() => {
     document.body.dataset.theme = theme;
@@ -28,49 +63,51 @@ export function PreferenceControls({
   }, [theme]);
 
   useEffect(() => {
-    document.body.dataset.lang = lang;
-    localStorage.setItem("oc101-lang", lang);
+    persistLang(lang);
   }, [lang]);
+
+  function handleLanguageChange(nextLang: Locale) {
+    if (nextLang === lang) {
+      return;
+    }
+
+    setLang(nextLang);
+    localStorage.setItem(explicitPreferenceKey, "1");
+    const nextPath = switchLocaleInPathname(pathname, nextLang);
+    const hash = window.location.hash || "";
+    router.push(`${nextPath}${hash}`);
+  }
 
   return (
     <>
-      <div className="switcher" aria-label="Theme switcher">
+      <div className="switcher switcher-theme" aria-label="Theme switcher">
         <button
-          className={theme === "light" ? "is-on" : undefined}
-          onClick={() => setTheme("light")}
+          aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+          className="is-on"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           type="button"
         >
-          Light
-        </button>
-        <button
-          className={theme === "dark" ? "is-on" : undefined}
-          onClick={() => setTheme("dark")}
-          type="button"
-        >
-          Dark
+          <span aria-hidden="true" className="theme-icon">
+            {theme === "light" ? "☀" : "☾"}
+          </span>
         </button>
       </div>
-      <div className="switcher" aria-label="Language switcher">
+      <div className="switcher switcher-lang" aria-label="Language switcher">
         <button
+          aria-pressed={lang === "zh"}
           className={lang === "zh" ? "is-on" : undefined}
-          onClick={() => setLang("zh")}
+          onClick={() => handleLanguageChange("zh")}
           type="button"
         >
           中
         </button>
         <button
+          aria-pressed={lang === "en"}
           className={lang === "en" ? "is-on" : undefined}
-          onClick={() => setLang("en")}
+          onClick={() => handleLanguageChange("en")}
           type="button"
         >
           EN
-        </button>
-        <button
-          className={lang === "both" ? "is-on" : undefined}
-          onClick={() => setLang("both")}
-          type="button"
-        >
-          双语
         </button>
       </div>
     </>
