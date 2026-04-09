@@ -4,7 +4,7 @@ import { PreferenceControls } from "@/components/preferences";
 import { getRequestLocale } from "@/lib/i18n-server";
 import { SiteFooter } from "@/components/site-footer";
 
-type PageName = "home" | "learn" | "templates" | "troubleshoot" | "none";
+type PageName = "home" | "learn" | "templates" | "troubleshoot" | "skills" | "none";
 
 type SiteShellProps = {
   active: PageName;
@@ -15,6 +15,7 @@ type SiteShellProps = {
 const navItems = [
   { href: "/learn", label: "Learn", key: "learn" },
   { href: "/templates", label: "Templates", key: "templates" },
+  { href: "/skills", label: "Skills", key: "skills" },
   { href: "/troubleshoot", label: "Troubleshoot", key: "troubleshoot" },
 ] as const;
 
