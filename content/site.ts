@@ -331,4 +331,24 @@ export const homeFaq: FaqEntry[] = [
       zh: "先查进程状态、渠道配对和模型凭证。等症状更明确之后，再进入 Troubleshoot，而不是一口气改五个配置。",
     },
   },
+  {
+    question: {
+      en: "What should I verify before installing extra skills or services?",
+      zh: "在安装额外技能或服务之前，我应该先验证什么？",
+    },
+    answer: {
+      en: "Verify the base stack first: the app starts cleanly, one model provider works, one channel can send and receive messages, and logs are readable when something fails.",
+      zh: "先验证基础栈：应用能正常启动、一个模型提供商可用、一个渠道能收发消息，而且失败时你能读懂日志。基础没稳之前，不要继续叠加更多技能和外部服务。",
+    },
+  },
+  {
+    question: {
+      en: "How do I know when to move from Quick Start to Templates?",
+      zh: "我什么时候该从 Quick Start 转到 Templates？",
+    },
+    answer: {
+      en: "Move to Templates once setup, channel connection, and one small workflow already work. Templates are best when you want faster output, not when you are still debugging the foundation.",
+      zh: "当 setup、渠道接通和一个小工作流都已经跑通后，再转到 Templates。模板适合加速产出，不适合在基础设施还没稳定时拿来排底层问题。",
+    },
+  },
 ];

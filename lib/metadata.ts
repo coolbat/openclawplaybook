@@ -1,7 +1,7 @@
 import type { LocalizedList, LocalizedText } from "@/content/types";
 import { localizeHref, type Locale } from "@/lib/i18n";
 import type { Metadata } from "next";
-import { absoluteUrl, siteName, siteUrl } from "@/lib/site";
+import { absoluteAssetUrl, absoluteUrl, siteName, siteUrl } from "@/lib/site";
 
 type MaybeLocalizedText = string | LocalizedText;
 type MaybeLocalizedList = string[] | LocalizedList;
@@ -44,7 +44,7 @@ export function createPageMetadata({
   const resolvedDescription = resolveText(description, locale);
   const resolvedKeywords = resolveList(keywords, locale);
   const fullTitle = resolvedTitle === siteName ? siteName : `${resolvedTitle} | ${siteName}`;
-  const socialImage = absoluteUrl("/opengraph-image");
+  const socialImage = absoluteAssetUrl("/opengraph-image");
 
   return {
     title: fullTitle,

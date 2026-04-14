@@ -5,6 +5,10 @@ import type { QuickStartEntry } from "@/content/site";
 
 export function QuickStartCard({ entry }: { entry: QuickStartEntry }) {
   const bulletCount = entry.bullets.en.length;
+  const ctaLabel = {
+    en: `Open guide: ${entry.title.en}`,
+    zh: `查看详解：${entry.title.zh}`,
+  };
 
   return (
     <article className="card quick-start-card" id={entry.id}>
@@ -37,7 +41,7 @@ export function QuickStartCard({ entry }: { entry: QuickStartEntry }) {
       <ChecklistList items={entry.bullets} />
       <div className="cta-row">
         <LocalizedLink className={`btn ${entry.cta.variant ?? "secondary"}`} href={entry.cta.href}>
-          <CopyPair en={<>{entry.cta.label.en}</>} zh={<>{entry.cta.label.zh}</>} inline />
+          <CopyPair en={<>{ctaLabel.en}</>} zh={<>{ctaLabel.zh}</>} inline />
         </LocalizedLink>
       </div>
       <CopyPair

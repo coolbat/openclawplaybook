@@ -76,6 +76,17 @@ export default async function LearnArticlePage({ params }: LearnArticlePageProps
             description: tutorialSummary,
             inLanguage: locale === "zh" ? "zh-CN" : "en",
             url: absoluteLocalizedUrl(`/learn/${slug}`, locale),
+            mainEntityOfPage: absoluteLocalizedUrl(`/learn/${slug}`, locale),
+            author: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
             isPartOf: {
               "@type": "WebSite",
               name: siteName,

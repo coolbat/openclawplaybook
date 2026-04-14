@@ -80,6 +80,17 @@ export default async function TroubleshootArticlePage({ params }: TroubleshootAr
             description: entrySummary,
             inLanguage: locale === "zh" ? "zh-CN" : "en",
             url: absoluteLocalizedUrl(`/troubleshoot/${slug}`, locale),
+            mainEntityOfPage: absoluteLocalizedUrl(`/troubleshoot/${slug}`, locale),
+            author: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
             isPartOf: {
               "@type": "WebSite",
               name: siteName,

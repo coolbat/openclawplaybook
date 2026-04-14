@@ -19,7 +19,8 @@ export function TemplateCard({
     eyebrow: locale === "zh" ? "精选模板" : "Featured starter",
     recommendedFor: locale === "zh" ? "适合：" : "Recommended for: ",
     channels: locale === "zh" ? "渠道：" : "Channels: ",
-    openTemplate: locale === "zh" ? "查看模板" : "Open template",
+    openTemplate:
+      locale === "zh" ? `查看模板：${entry.title.zh}` : `Open template: ${entry.title.en}`,
   };
 
   return (

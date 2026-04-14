@@ -8,7 +8,13 @@ import { TemplateCard } from "@/components/template-card";
 import { createPageMetadata } from "@/lib/metadata";
 import { getRequestLocale } from "@/lib/i18n-server";
 import { pickLocalizedText } from "@/lib/i18n";
-import { absoluteLocalizedUrl, absoluteUrl, officialLinks, siteName, siteUrl } from "@/lib/site";
+import {
+  absoluteAssetUrl,
+  absoluteLocalizedUrl,
+  officialLinks,
+  siteName,
+  siteUrl,
+} from "@/lib/site";
 import {
   homeFaq,
   homeHero,
@@ -91,7 +97,7 @@ export default async function HomePage() {
             "@type": "Organization",
             name: siteName,
             url: siteUrl,
-            logo: absoluteUrl("/icon.svg"),
+            logo: absoluteAssetUrl("/icon.svg"),
             sameAs: officialLinks.map((link) => link.href),
           },
           {

@@ -77,6 +77,17 @@ export default async function TemplateArticlePage({ params }: TemplateArticlePag
             description: templateSummary,
             inLanguage: locale === "zh" ? "zh-CN" : "en",
             url: absoluteLocalizedUrl(`/templates/${slug}`, locale),
+            mainEntityOfPage: absoluteLocalizedUrl(`/templates/${slug}`, locale),
+            author: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
             isPartOf: {
               "@type": "WebSite",
               name: siteName,

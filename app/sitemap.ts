@@ -10,6 +10,7 @@ const routes = [
   "/",
   "/learn",
   "/templates",
+  "/skills",
   "/troubleshoot",
   "/about",
   "/editorial",
@@ -45,13 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
               ? 0.7
               : route.startsWith("/troubleshoot/")
                 ? 0.7
-                : route === "/about" ||
+            : route === "/about" ||
               route === "/privacy" ||
               route === "/terms" ||
               route === "/editorial"
                   ? 0.5
-                  : 0.8,
-      lastModified: new Date(),
+                  : route === "/skills"
+                    ? 0.7
+                    : 0.8,
     })),
   );
 }

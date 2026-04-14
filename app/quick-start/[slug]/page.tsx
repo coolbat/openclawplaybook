@@ -76,6 +76,17 @@ export default async function QuickStartArticlePage({ params }: QuickStartArticl
             description: entrySummary,
             inLanguage: locale === "zh" ? "zh-CN" : "en",
             url: absoluteLocalizedUrl(`/quick-start/${slug}`, locale),
+            mainEntityOfPage: absoluteLocalizedUrl(`/quick-start/${slug}`, locale),
+            author: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
+            publisher: {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+            },
             isPartOf: {
               "@type": "WebSite",
               name: siteName,
