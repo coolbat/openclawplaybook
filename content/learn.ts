@@ -240,7 +240,7 @@ export const learnTabs: LearnTab[] = [
     label: { en: "Advanced Config", zh: "进阶配置" },
     intro: {
       en: "Go beyond the defaults. These guides cover workspace behavior rules, memory persistence, and parallel task execution — the three levers that separate a capable setup from a basic one.",
-      zh: "超越默认配置。这三篇指南覆盖工作区行为规则、记忆持久化和并行任务执行——正是这三个关键点区分了"能用"和"真好用"。",
+      zh: "超越默认配置。这三篇指南覆盖工作区行为规则、记忆持久化和并行任务执行——正是这三个关键点区分了「能用」和「真好用」。",
     },
     tutorials: [
       {
