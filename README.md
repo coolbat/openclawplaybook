@@ -1,13 +1,13 @@
-# Hermes Agent Playbook
+# OpenClaw Playbook
 
 > [!IMPORTANT]
-> **这是一个双语 Hermes Agent 教程仓库。**  
+> **这是一个双语 OpenClaw 教程仓库。**  
 > 你不需要先跑站点，也不需要先翻完整仓库。  
 > 直接从下面的 **Quick Start** 入口点进 MDX 教程，就可以在 GitHub 里开始使用这套教程。
 
 <div align="center">
 
-# OpenClaw / Hermes Agent Tutorials
+# OpenClaw Tutorials
 
 从认知、安装、渠道、工作流到排错恢复的双语 playbook  
 Built as a bilingual tutorial repo for users who want a real first workflow, not a maze of docs.
@@ -29,7 +29,7 @@ Built as a bilingual tutorial repo for users who want a real first workflow, not
 
 ## Quick Start
 
-如果你是第一次接触 Hermes Agent / OpenClaw，不要先从大而全的架构、技能市场或长篇排错开始。  
+如果你是第一次接触 OpenClaw，不要先从大而全的架构、技能市场或长篇排错开始。  
 先沿着 5 步路径跑通一个最小闭环。
 
 ### 中文 5 步入口
