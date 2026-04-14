@@ -2225,6 +2225,140 @@ body[data-lang="en"] .home-hero .sub {
   line-height: 1.6;
 }
 
+.skills-tabs-section {
+  display: grid;
+  gap: 18px;
+}
+
+.skills-tabs-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.skills-tab-trigger {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  min-height: 42px;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.skills-tab-trigger:hover {
+  transform: translateY(-1px);
+}
+
+.skills-tab-trigger.is-active {
+  color: #fff;
+  background: var(--brand);
+  border-color: var(--brand);
+  box-shadow: 0 12px 28px rgba(237, 106, 60, 0.18);
+}
+
+.skills-tab-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.skills-tab-intro {
+  max-width: 68ch;
+}
+
+.skills-tab-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.skills-grid {
+  align-items: stretch;
+}
+
+.skill-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.skill-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.skill-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 88%, var(--brand-soft));
+  border: 1px solid color-mix(in srgb, var(--line) 76%, var(--brand-soft));
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.skill-starter-badge {
+  color: var(--brand-strong);
+  background: color-mix(in srgb, #fff 76%, var(--brand-soft));
+  border-color: color-mix(in srgb, var(--brand) 34%, var(--line));
+}
+
+.skill-card > p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.skill-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-install {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface) 90%, var(--brand-soft));
+  border: 1px solid color-mix(in srgb, var(--line) 82%, var(--brand-soft));
+}
+
+.skill-install-cmd {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.skill-use-cases {
+  display: grid;
+  gap: 8px;
+}
+
+.skill-use-cases ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.skill-use-cases li::marker {
+  color: var(--brand);
+}
+
 .card,
 .callout,
 .hero-side {
